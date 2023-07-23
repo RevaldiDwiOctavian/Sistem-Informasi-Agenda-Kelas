@@ -21,7 +21,9 @@ export default {
   css: [],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: [],
+  plugins: [
+    { src: '@/src/plugins/vue-toastification', ssr: false }
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -39,7 +41,17 @@ export default {
     // https://go.nuxtjs.dev/pwa
     '@nuxtjs/pwa',
     '@nuxtjs/auth-next',
+    '@nuxtjs/device',
   ],
+
+  workbox : {
+    dev: true,
+    debug: true
+ },
+
+  device: {
+    refreshOnResize: true
+  },
 
   auth: {
     strategies: {
@@ -50,14 +62,24 @@ export default {
           login: {
             url: '/api/login',
             method: 'POST'
+          },
+          logout: {
+            url: '/api/logout',
+            method: 'POST'
           }
         }
+      },
+      local: {
+        token: {
+          property: 'token',
+          global: true,
+        },
       }
-    }
+    },
   },
 
   router: {
-    
+    middleware: ['auth']
   },
 
 
@@ -71,8 +93,27 @@ export default {
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
-      lang: 'en',
+      name: "Sistem Informasi Agenda Kelas",
+      short_name: "SisFoAgendaKelas",
+      description: "bla bla bla",
+      theme_color: "#6a5acd",
+      lang: "en",
+      background_color: "#6a5acd",
     },
+
+    meta: {
+      name: "Sistem Informasi Agenda Kelas",
+      description: "bla bla bla",
+      author: "Revaldi Dwi Octavian",
+      theme_color: "#6a5acd",
+      nativeUi: true,
+      appleStatusBarStyle: "black",
+      mobileAppIOS: true,
+    },
+
+    workbox: {
+      
+    }
   },
 
   // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify

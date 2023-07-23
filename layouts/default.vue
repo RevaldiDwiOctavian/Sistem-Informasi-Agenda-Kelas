@@ -7,7 +7,8 @@
       fixed
       app
     >
-      <v-list>
+      <div v-if="items != null">
+        <v-list>
         <v-list-item
           v-for="(item, i) in items"
           :key="i"
@@ -23,22 +24,21 @@
           </v-list-item-content>
         </v-list-item>
       </v-list>
+      </div>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" fixed app>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <v-btn icon @click.stop="miniVariant = !miniVariant">
-        <v-icon>mdi-{{ `chevron-${miniVariant ? 'right' : 'left'}` }}</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="clipped = !clipped">
-        <v-icon>mdi-application</v-icon>
-      </v-btn>
-      <v-btn icon @click.stop="fixed = !fixed">
-        <v-icon>mdi-minus</v-icon>
-      </v-btn>
+    <v-app-bar :clipped-left="clipped" app>
+      <div v-if="$device.isDesktop">
+        <v-app-bar-nav-icon  @click.stop="miniVariant = !miniVariant" />
+    </div>
+      <div v-else>
+        <v-app-bar-nav-icon  @click.stop="drawer = !drawer" />
+    </div>
+      
       <v-toolbar-title>{{ title }}</v-toolbar-title>
       <v-spacer />
+      <div v-if="this.$device.isDesktop">{{ user.name }}</div>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
-        <v-icon>mdi-menu</v-icon>
+        <v-icon>mdi-account</v-icon>
       </v-btn>
     </v-app-bar>
     <v-main>
@@ -46,17 +46,41 @@
         <Nuxt />
       </v-container>
     </v-main>
-    <v-navigation-drawer v-model="rightDrawer" :right="right" temporary fixed>
+    <v-navigation-drawer v-model="rightDrawer" :right=true temporary fixed>
+
       <v-list>
-        <v-list-item @click.native="right = !right">
+        <v-list-item link>
+          <v-list-item-content>
+            <v-list-item-title class="text-h6">
+              {{ user.name }}
+            </v-list-item-title>
+            <v-list-item-subtitle>{{user.email}}</v-list-item-subtitle>
+          </v-list-item-content>
+
           <v-list-item-action>
-            <v-icon light> mdi-repeat </v-icon>
+            <v-icon>mdi-menu-down</v-icon>
           </v-list-item-action>
-          <v-list-item-title>Switch drawer (click me)</v-list-item-title>
+        </v-list-item>
+      </v-list>
+      <v-divider></v-divider>
+
+      <v-list>
+        <v-list-item to="/notifikasi">
+          <v-list-item-action>
+            <v-icon> mdi-bell </v-icon>
+          </v-list-item-action>
+          <v-list-item-title>Notifikasi</v-list-item-title>
+        </v-list-item>
+
+        <v-list-item @click="logout">
+          <v-list-item-action>
+            <v-icon> mdi-logout </v-icon>
+          </v-list-item-action>
+          <v-list-item-title>Logout</v-list-item-title>
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-footer :absolute="!fixed" app>
+    <v-footer :absolute="fixed" app>
       <span>&copy; {{ new Date().getFullYear() }}</span>
     </v-footer>
   </v-app>
@@ -65,28 +89,58 @@
 <script>
 export default {
   name: 'DefaultLayout',
+  props: {
+    
+  },
   data() {
     return {
-      clipped: false,
-      drawer: false,
+      user: this.$auth.user.data,
+      clipped: true,
+      drawer: true,
       fixed: false,
-      items: [
-        {
+      items: [],
+      miniVariant: false,
+      rightDrawer: false,
+      title: 'Sistem InformasiAgenda Kelas',
+    }
+  },
+
+  mounted() {
+    console.log
+    if(this.user.role == 'admin'){
+      this.items = [
+      {
           icon: 'mdi-apps',
-          title: 'Welcome',
+          title: 'Dashboard',
           to: '/',
         },
         {
-          icon: 'mdi-chart-bubble',
-          title: 'Inspire',
-          to: '/inspire',
+          icon: 'mdi-account',
+          title: 'User Management',
+          to: 'admin/user-management',
         },
-      ],
-      miniVariant: false,
-      right: true,
-      rightDrawer: false,
-      title: 'Vuetify.js',
+      ]
+    } else if (this.user.role == 'walikelas'){
+      this.items = [
+      {
+          icon: 'mdi-apps',
+          title: 'Dashboard',
+          to: '/',
+        },
+        {
+          icon: 'mdi-account',
+          title: 'User Management',
+          to: '/user-management',
+        },
+      ]
     }
+  },
+  methods: {
+    async logout() {
+      await this.$auth.logout()
+      this.$toast.success('Logout Success')
+      this.$router.push('/login')
+    },
   },
 }
 </script>

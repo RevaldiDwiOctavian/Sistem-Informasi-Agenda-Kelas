@@ -21,9 +21,13 @@
     "vue": "^2.7.10",
     "vue-server-renderer": "^2.7.10",
     "vue-template-compiler": "^2.7.10",
+    "vue-toastification": "^1.7.14",
     "vuetify": "^2.6.10"
   },
   "devDependencies": {
+    "@mdi/font": "^7.2.96",
+    "@mdi/js": "^7.2.96",
+    "@nuxtjs/device": "^2.2.0",
     "@nuxtjs/vuetify": "^1.12.3",
     "eslint-config-prettier": "^8.5.0",
     "prettier": "^2.7.1"
