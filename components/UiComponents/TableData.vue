@@ -1,6 +1,8 @@
 <template>
   <v-card>
     <v-card-title>
+      Table
+      <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
         append-icon="mdi-magnify"
@@ -17,8 +19,10 @@
       show-select
       class="elevation-1"
       :search="search"
-      :loading = "isLoading"
+      :loading="isLoading"
       loading-text="Loading... Please wait"
+      fixed-header
+      height="400px"
     >
     </v-data-table>
   </v-card>
@@ -37,9 +41,9 @@ export default {
       required: true,
     },
     isLoading: {
-        type: Boolean,
-        default: false
-    }
+      type: Boolean,
+      default: false,
+    },
   },
   data() {
     return {

@@ -26,7 +26,9 @@
       </v-list>
       </div>
     </v-navigation-drawer>
-    <v-app-bar :clipped-left="clipped" app>
+    <v-app-bar :clipped-left="clipped"
+      dark
+      scroll-target="#scrolling-techniques-2" app>
       <div v-if="$device.isDesktop">
         <v-app-bar-nav-icon  @click.stop="miniVariant = !miniVariant" />
     </div>
@@ -107,6 +109,9 @@ export default {
 
   mounted() {
     console.log
+    if(this.$device.isMobile){
+      this.drawer = false
+    }
     if(this.user.role == 'admin'){
       this.items = [
       {
@@ -115,9 +120,9 @@ export default {
           to: '/',
         },
         {
-          icon: 'mdi-account',
-          title: 'User Management',
-          to: 'admin/user-management',
+          icon: 'mdi-account-school',
+          title: 'Siswa Management',
+          to: '/admin/siswa-management',
         },
       ]
     } else if (this.user.role == 'walikelas'){
