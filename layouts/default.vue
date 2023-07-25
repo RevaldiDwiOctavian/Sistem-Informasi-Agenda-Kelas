@@ -28,7 +28,7 @@
     </v-navigation-drawer>
     <v-app-bar :clipped-left="clipped"
       dark
-      scroll-target="#scrolling-techniques-2" app>
+      app>
       <div v-if="$device.isDesktop">
         <v-app-bar-nav-icon  @click.stop="miniVariant = !miniVariant" />
     </div>

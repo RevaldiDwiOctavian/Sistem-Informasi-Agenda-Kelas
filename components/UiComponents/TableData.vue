@@ -1,7 +1,7 @@
 <template>
   <v-card>
     <v-card-title>
-      Table
+      {{title}}
       <v-spacer></v-spacer>
       <v-text-field
         v-model="search"
@@ -32,6 +32,10 @@
 export default {
   name: 'TableData',
   props: {
+    title: {
+      type: String,
+      required: true,
+    },
     dataArr: {
       type: Array,
       required: true,
