@@ -87,7 +87,7 @@ export default {
         this.$auth.$storage.setLocalStorage('access_token', response.data.access_token)
         this.$toast.success("Login Success");
         this.loading = false
-        this.$router.push('/')
+        await this.$router.push('/')
       } catch (error) {
         console.log(error.response.data.message)
         this.loading = false
