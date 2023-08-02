@@ -7,79 +7,48 @@
       fixed
       app
     >
-    <v-list shaped>
-      <v-list-item
-            v-for="(item, i) in items"
+      <v-list shaped>
+        <v-list-item to="/" router exact>
+          <v-list-item-action>
+            <v-icon>mdi-view-dashboard</v-icon>
+          </v-list-item-action>
+          <v-list-item-content>
+            <v-list-item-title>Dahsboard</v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
+        <v-list-group :value="false" prepend-icon="mdi-account-circle">
+          <template v-slot:activator>
+            <v-list-item-title>Management</v-list-item-title>
+          </template>
+          <v-list-item router exact>
+            <v-list-item-action><v-icon>mdi-account</v-icon> </v-list-item-action>
+            <v-list-item-content>
+              <v-list-item-title>User Admin</v-list-item-title>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list-group>
+        <v-list-group :value="false" prepend-icon="mdi-cog">
+          <template v-slot:activator>
+            <v-list-item-title>Management</v-list-item-title>
+          </template>
+          <v-list-item
+            v-for="(item, i) in managements"
             :key="i"
             :to="item.to"
             router
             exact
           >
-            <v-list-item-action>
+            <v-list-item-icon>
               <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-action>
+            </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
           </v-list-item>
-
-      <v-list-group
-        :value="true"
-        prepend-icon="mdi-account-circle"
-      >
-        <template v-slot:activator>
-          <v-list-item-title>Users</v-list-item-title>
-        </template>
-
-        <v-list-group
-          :value="true"
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Admin</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in admins"
-            :key="i"
-            link
-          >
-            <v-list-item-title>{{ title }}</v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon>{{ icon }}</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
         </v-list-group>
-
-        <v-list-group
-          no-action
-          sub-group
-        >
-          <template v-slot:activator>
-            <v-list-item-content>
-              <v-list-item-title>Actions</v-list-item-title>
-            </v-list-item-content>
-          </template>
-
-          <v-list-item
-            v-for="([title, icon], i) in cruds"
-            :key="i"
-            link
-          >
-            <v-list-item-title>{{ title }}</v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon>{{ icon }}</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-      </v-list-group>
-    </v-list>
+      </v-list>
     </v-navigation-drawer>
+
     <v-app-bar :clipped-left="clipped" dark app>
       <div v-if="$device.isDesktop">
         <v-app-bar-nav-icon @click.stop="miniVariant = !miniVariant" />
@@ -109,10 +78,6 @@
             </v-list-item-title>
             <v-list-item-subtitle>{{ user.email }}</v-list-item-subtitle>
           </v-list-item-content>
-
-          <v-list-item-action>
-            <v-icon>mdi-menu-down</v-icon>
-          </v-list-item-action>
         </v-list-item>
       </v-list>
       <v-divider></v-divider>
@@ -149,21 +114,10 @@ export default {
       clipped: true,
       drawer: true,
       fixed: false,
-      items: [],
+      managements: [],
       miniVariant: false,
       rightDrawer: false,
       title: 'Sistem InformasiAgenda Kelas',
-
-      admins: [
-        ['Management', 'mdi-account-multiple-outline'],
-        ['Settings', 'mdi-cog-outline'],
-      ],
-      cruds: [
-        ['Create', 'mdi-plus-outline'],
-        ['Read', 'mdi-file-outline'],
-        ['Update', 'mdi-update'],
-        ['Delete', 'mdi-delete'],
-      ],
     }
   },
 
@@ -173,16 +127,31 @@ export default {
       this.drawer = false
     }
     if (this.user.role == 'admin') {
-      this.items = [
-      {
-          icon: 'mdi-apps',
-          title: 'Dashboard',
-          to: '/',
+      this.managements = [
+        {
+          icon: 'mdi-account-school',
+          title: 'Guru',
+          to: '/admin/guru-management',
+        },
+        {
+          icon: 'mdi-google-classroom',
+          title: 'Rombel',
+          to: '/admin/rombel-management',
         },
         {
           icon: 'mdi-account-school',
-          title: 'Siswa Management',
+          title: 'Siswa',
           to: '/admin/siswa-management',
+        },
+        {
+          icon: 'mdi-bookshelf',
+          title: 'Pembelajaran',
+          to: '/admin/pembelejaran-management',
+        },
+        {
+          icon: 'mdi-view-agenda',
+          title: 'Agenda Kelas',
+          to: '/admin/agenda-kelas-management',
         },
       ]
     } else if (this.user.role == 'walikelas') {

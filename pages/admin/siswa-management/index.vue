@@ -217,7 +217,7 @@
               dark
               v-bind="attrs"
               v-on="on"
-              :disabled="selected.length != 1 && siswaPayload.user_id === null"
+              :disabled="selected.length != 1 || siswaPayload.user_id === null"
               @click="appendSelected"
             >
               <v-icon>mdi-link-off</v-icon>Batal Tautkan Akun
@@ -282,15 +282,7 @@
 </template>
 
 <script>
-import TableData from '@/components/UiComponents/TableData.vue'
-import FormDialogVue from '~/components/UiComponents/FormDialog.vue'
-import CrudDataTable from '~/components/Admin/CrudDataTableSiswaManagement.vue'
 export default {
-  components: {
-    TableData,
-    FormDialogVue,
-    CrudDataTable,
-  },
 
   data() {
     return {
