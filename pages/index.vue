@@ -108,9 +108,9 @@ export default {
       const totalSiswa = await this.$axios.$get('/admin/siswa-total')
       const totalGuru = await this.$axios.$get('/admin/guru-total')
       const totalRombel = await this.$axios.$get('/admin/rombel-total')
-      this.siswaCard.total = totalSiswa.data
-      this.guruCard.total = totalGuru.data
-      this.rombelCard.total = totalRombel.data
+      this.siswaCard.total = totalSiswa?.data
+      this.guruCard.total = totalGuru?.data
+      this.rombelCard.total = totalRombel?.data
       this.loading = false
     } catch (error) {
       this.loading = false

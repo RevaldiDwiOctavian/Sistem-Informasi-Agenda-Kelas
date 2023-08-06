@@ -71,7 +71,7 @@ export default {
 
   mounted() {
     if (this.$auth.loggedIn) {
-      this.$router.push('/')
+      this.$router.push('/').catch()
     }
   },
   methods: {
@@ -87,7 +87,7 @@ export default {
         this.$auth.$storage.setLocalStorage('access_token', response.data.access_token)
         this.$toast.success("Login Success");
         this.loading = false
-        await this.$router.push('/')
+        await this.$router.push('/').catch()
       } catch (error) {
         console.log(error.response.data.message)
         this.loading = false

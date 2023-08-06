@@ -18,13 +18,23 @@
         </v-list-item>
         <v-list-group :value="false" prepend-icon="mdi-account-circle">
           <template v-slot:activator>
-            <v-list-item-title>Management</v-list-item-title>
+            <v-list-item-title>User</v-list-item-title>
           </template>
-          <v-list-item router exact>
-            <v-list-item-action><v-icon>mdi-account</v-icon> </v-list-item-action>
+          <v-list-item
+            v-for="(item, i) in userManagement"
+            :key="i"
+            :to="item.to"
+            router
+            exact
+          >
+            <v-list-item-icon>
+            </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>User Admin</v-list-item-title>
+              <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
           </v-list-item>
         </v-list-group>
         <v-list-group :value="false" prepend-icon="mdi-cog">
@@ -38,12 +48,13 @@
             router
             exact
           >
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
+            <v-list-item-icon> </v-list-item-icon>
             <v-list-item-content>
               <v-list-item-title>{{ item.title }}</v-list-item-title>
             </v-list-item-content>
+            <v-list-item-icon>
+              <v-icon>{{ item.icon }}</v-icon>
+            </v-list-item-icon>
           </v-list-item>
         </v-list-group>
       </v-list>
@@ -115,6 +126,7 @@ export default {
       drawer: true,
       fixed: false,
       managements: [],
+      userManagement: [],
       miniVariant: false,
       rightDrawer: false,
       title: 'Sistem InformasiAgenda Kelas',
@@ -122,7 +134,6 @@ export default {
   },
 
   mounted() {
-    console.log
     if (this.$device.isMobile) {
       this.drawer = false
     }
@@ -146,12 +157,34 @@ export default {
         {
           icon: 'mdi-bookshelf',
           title: 'Pembelajaran',
-          to: '/admin/pembelejaran-management',
+          to: '/admin/pembelajaran-management',
         },
         {
           icon: 'mdi-view-agenda',
           title: 'Agenda Kelas',
           to: '/admin/agenda-kelas-management',
+        },
+      ]
+      this.userManagement = [
+        {
+          icon: 'mdi-checkbox-blank-circle',
+          title: 'Admin',
+          to: '/admin/user-management/user-admin',
+        },
+        {
+          icon: 'mdi-checkbox-blank-circle',
+          title: 'Wali Kelas',
+          to: '/admin/user-management/user-walikelas',
+        },
+        {
+          icon: 'mdi-checkbox-blank-circle',
+          title: 'Guru',
+          to: '/admin/user-management/user-guru',
+        },
+        {
+          icon: 'mdi-checkbox-blank-circle',
+          title: 'Siswa',
+          to: '/admin/user-management/user-siswa',
         },
       ]
     } else if (this.user.role == 'walikelas') {

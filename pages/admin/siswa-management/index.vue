@@ -576,7 +576,6 @@ export default {
 
         if (response.status === 200) {
           this.$toast.success('Siswa berhasil dihapus')
-          this.fetchSiswaData() // Perbarui daftar siswa setelah berhasil menghapus
           this.closeDialogAndReset() // Tutup dialog setelah menghapus
         } else {
           console.log(response)
