@@ -5,55 +5,48 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
+      width="280"
       app
     >
       <v-list shaped>
-        <v-list-item to="/" router exact>
+        <v-list-item
+          v-for="(item, i) in singleList"
+          :key="i"
+          :to="item.to"
+          router
+          exact
+        >
           <v-list-item-action>
-            <v-icon>mdi-view-dashboard</v-icon>
+            <v-icon>{{ item.icon }}</v-icon>
           </v-list-item-action>
           <v-list-item-content>
-            <v-list-item-title>Dahsboard</v-list-item-title>
+            <v-list-item-title>{{ item.label }}</v-list-item-title>
           </v-list-item-content>
         </v-list-item>
-        <v-list-group :value="false" prepend-icon="mdi-account-circle">
+
+        <v-list-group
+          :value="false"
+          v-for="(item, i) in groupList"
+          :key="i"
+          :prepend-icon="item.icon"
+          color="success"
+        >
           <template v-slot:activator>
-            <v-list-item-title>User</v-list-item-title>
+            <v-list-item-title>{{ item.label }}</v-list-item-title>
           </template>
           <v-list-item
-            v-for="(item, i) in userManagement"
-            :key="i"
-            :to="item.to"
-            router
-            exact
-          >
-            <v-list-item-icon>
-            </v-list-item-icon>
-            <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
-            </v-list-item-content>
-            <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-group>
-        <v-list-group :value="false" prepend-icon="mdi-cog">
-          <template v-slot:activator>
-            <v-list-item-title>Management</v-list-item-title>
-          </template>
-          <v-list-item
-            v-for="(item, i) in managements"
-            :key="i"
-            :to="item.to"
+            v-for="(child, j) in item.childrens"
+            :key="j"
+            :to="child.to"
             router
             exact
           >
             <v-list-item-icon> </v-list-item-icon>
             <v-list-item-content>
-              <v-list-item-title>{{ item.title }}</v-list-item-title>
+              <v-list-item-title>{{ child.label }}</v-list-item-title>
             </v-list-item-content>
             <v-list-item-icon>
-              <v-icon>{{ item.icon }}</v-icon>
+              <v-icon>{{ child.icon }}</v-icon>
             </v-list-item-icon>
           </v-list-item>
         </v-list-group>
@@ -68,7 +61,11 @@
         <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       </div>
 
-      <v-toolbar-title>{{ title }}</v-toolbar-title>
+      <v-toolbar-title
+        ><v-avatar size="40" class="mr-3"
+          ><img src="/iconDashboard.png" alt="" /></v-avatar
+        ><span v-if="this.$device.isDesktop">{{ title }}</span></v-toolbar-title
+      >
       <v-spacer />
       <div v-if="this.$device.isDesktop">{{ user.name }}</div>
       <v-btn icon @click.stop="rightDrawer = !rightDrawer">
@@ -125,8 +122,8 @@ export default {
       clipped: true,
       drawer: true,
       fixed: false,
-      managements: [],
-      userManagement: [],
+      singleList: [],
+      groupList: [],
       miniVariant: false,
       rightDrawer: false,
       title: 'Sistem InformasiAgenda Kelas',
@@ -137,67 +134,88 @@ export default {
     if (this.$device.isMobile) {
       this.drawer = false
     }
-    if (this.user.role == 'admin') {
-      this.managements = [
-        {
-          icon: 'mdi-account-school',
-          title: 'Guru',
-          to: '/admin/guru-management',
-        },
-        {
-          icon: 'mdi-google-classroom',
-          title: 'Rombel',
-          to: '/admin/rombel-management',
-        },
-        {
-          icon: 'mdi-account-school',
-          title: 'Siswa',
-          to: '/admin/siswa-management',
-        },
-        {
-          icon: 'mdi-bookshelf',
-          title: 'Pembelajaran',
-          to: '/admin/pembelajaran-management',
-        },
+    this.singleList = [
+      {
+        icon: 'mdi-view-dashboard',
+        label: 'Dashboard',
+        to: '/',
+      },
+    ]
+
+    if (this.user.role === 'guru') {
+      this.groupList = [
         {
           icon: 'mdi-view-agenda',
-          title: 'Agenda Kelas',
-          to: '/admin/agenda-kelas-management',
+          label: 'Menu',
+          childrens: [
+            {
+              icon: 'mdi-view-agenda',
+              label: 'Isi Agenda Kelas',
+              to: '/guru/agenda-kelas',
+            },
+          ],
         },
       ]
-      this.userManagement = [
+    }
+
+    if (this.user.role === 'admin') {
+      this.groupList = [
         {
-          icon: 'mdi-checkbox-blank-circle',
-          title: 'Admin',
-          to: '/admin/user-management/user-admin',
+          icon: 'mdi-cog',
+          label: 'Management',
+          childrens: [
+            {
+              icon: 'mdi-account-school',
+              label: 'Guru',
+              to: '/admin/guru-management',
+            },
+            {
+              icon: 'mdi-google-classroom',
+              label: 'Rombel',
+              to: '/admin/rombel-management',
+            },
+            {
+              icon: 'mdi-account-school',
+              label: 'Siswa',
+              to: '/admin/siswa-management',
+            },
+            {
+              icon: 'mdi-bookshelf',
+              label: 'Pembelajaran',
+              to: '/admin/pembelajaran-management',
+            },
+            {
+              icon: 'mdi-view-agenda',
+              label: 'Agenda Kelas',
+              to: '/admin/agenda-kelas-management',
+            },
+          ],
         },
         {
-          icon: 'mdi-checkbox-blank-circle',
-          title: 'Wali Kelas',
-          to: '/admin/user-management/user-walikelas',
-        },
-        {
-          icon: 'mdi-checkbox-blank-circle',
-          title: 'Guru',
-          to: '/admin/user-management/user-guru',
-        },
-        {
-          icon: 'mdi-checkbox-blank-circle',
-          title: 'Siswa',
-          to: '/admin/user-management/user-siswa',
-        },
-      ]
-    } else if (this.user.role == 'walikelas') {
-      this.items = [
-        {
-          icon: 'mdi-apps',
-          title: 'Dashboard',
-          to: '/',
-        },
-        {
-          icon: 'mdi-account',
-          title: 'User Management',
-          to: '/user-management',
+          icon: 'mdi-account-circle',
+          label: 'User',
+          childrens: [
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Admin',
+              to: '/admin/user-management/user-admin',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Wali Kelas',
+              to: '/admin/user-management/user-walikelas',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Guru',
+              to: '/admin/user-management/user-guru',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Siswa',
+              to: '/admin/user-management/user-siswa',
+            },
+          ],
         },
       ]
     }
