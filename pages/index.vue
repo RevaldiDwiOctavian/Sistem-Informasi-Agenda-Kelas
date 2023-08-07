@@ -1,6 +1,6 @@
 <template>
   <v-container>
-      <loading-overlay :is-loading="loading"/>
+    <loading-overlay :is-loading="loading" />
     <v-row>
       <v-col cols="12" sm="12">
         <v-card class="pa-4" tile> Selamat Datang, {{ user.name }} </v-card>
@@ -26,44 +26,50 @@
       <v-col cols="12" sm="4">
         <v-card class="pa-4">
           <v-row>
-          <v-col>
-            <v-card class="mx-auto" max-width="344" outlined>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h5 mb-1">
-                    Informasi
-                  </v-list-item-title>
-                  <v-divider></v-divider>
-                  <v-list-item-subtitle>Sistem Informasi Agenda Kelas</v-list-item-subtitle>
-                  <v-list-item-subtitle>Versi 1.0.0</v-list-item-subtitle>
-                </v-list-item-content>
+            <v-col>
+              <v-card class="mx-auto" max-width="344" outlined>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h5 mb-1">
+                      Informasi
+                    </v-list-item-title>
+                    <v-divider></v-divider>
+                    <v-list-item-subtitle
+                      >Sistem Informasi Agenda Kelas</v-list-item-subtitle
+                    >
+                    <v-list-item-subtitle>Versi 1.0.0</v-list-item-subtitle>
+                  </v-list-item-content>
 
-                <v-list-item-avatar
-                  tile
-                  size="80"
-                  color="grey"
-                ></v-list-item-avatar>
-              </v-list-item>
-            </v-card>
-          </v-col>
-        </v-row>
-        <v-row>
-          <v-col>
-            <v-card class="mx-auto" max-width="344" outlined>
-              <v-list-item three-line>
-                <v-list-item-content>
-                  <v-list-item-title class="text-h5 mb-1">
-                    Bantuan
-                  </v-list-item-title>
-                  <v-divider></v-divider>
-                  <v-list-item-subtitle><v-icon>mdi-email</v-icon> email@mail.com</v-list-item-subtitle>
-                  <br />
-                  <v-list-item-subtitle><v-icon>mdi-phone</v-icon>+6288123456789</v-list-item-subtitle>
-                </v-list-item-content>
-              </v-list-item>
-            </v-card>
-          </v-col>
-        </v-row>
+                  <v-list-item-avatar tile size="100">
+                    <img src="iconDashboard.png" alt="icon" />
+                  </v-list-item-avatar>
+                </v-list-item>
+              </v-card>
+            </v-col>
+          </v-row>
+          <v-row>
+            <v-col>
+              <v-card class="mx-auto" max-width="344" outlined>
+                <v-list-item three-line>
+                  <v-list-item-content>
+                    <v-list-item-title class="text-h5 mb-1">
+                      Bantuan
+                    </v-list-item-title>
+                    <v-divider></v-divider>
+                    <v-list-item-subtitle
+                      ><v-icon>mdi-email</v-icon>
+                      email@mail.com</v-list-item-subtitle
+                    >
+                    <br />
+                    <v-list-item-subtitle
+                      ><v-icon>mdi-phone</v-icon
+                      >+6288123456789</v-list-item-subtitle
+                    >
+                  </v-list-item-content>
+                </v-list-item>
+              </v-card>
+            </v-col>
+          </v-row>
         </v-card>
       </v-col>
     </v-row>
@@ -78,7 +84,7 @@ export default {
 
   components: {
     'dashboard-card': DashboardCard,
-    'loading-overlay': LoadingOverlayVue
+    'loading-overlay': LoadingOverlayVue,
   },
 
   data() {
