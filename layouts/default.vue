@@ -10,8 +10,8 @@
     >
       <v-list shaped>
         <v-list-item
-          v-for="(item, i) in singleList"
-          :key="i"
+          v-for="(item) in singleList"
+          :key="item.to"
           :to="item.to"
           router
           exact
@@ -26,8 +26,8 @@
 
         <v-list-group
           :value="false"
-          v-for="(item, i) in groupList"
-          :key="i"
+          v-for="(item) in groupList"
+          :key="item.to"
           :prepend-icon="item.icon"
           color="success"
         >
@@ -91,7 +91,7 @@
       <v-divider></v-divider>
 
       <v-list shaped>
-        <v-list-item to="/notifikasi">
+        <v-list-item to="/notifikasi" v-if="user.role === 'siswa'">
           <v-list-item-action>
             <v-icon> mdi-bell </v-icon>
           </v-list-item-action>
