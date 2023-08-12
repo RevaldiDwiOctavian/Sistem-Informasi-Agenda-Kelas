@@ -70,13 +70,14 @@ export default {
   },
 
   mounted() {
-
+    if (this.$auth.loggedIn) {
+      this.$router.push('/')
+    }
   },
   methods: {
     async login() {
       try {
         this.loading = true
-        
         let response = await this.$auth.loginWith('laravelSanctum', {
           data: {
             email: this.email,
@@ -86,6 +87,7 @@ export default {
         this.$auth.$storage.setLocalStorage('access_token', response.data.access_token)
         this.$toast.success("Login Success");
         this.loading = false
+        await this.$router.push('/').catch()
       } catch (error) {
         console.log(error.response.data.message)
         this.loading = false

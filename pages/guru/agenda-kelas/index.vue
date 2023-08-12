@@ -456,7 +456,24 @@ export default {
     },
 
     finish() {
-      this.$router.go(0)
+      this.step = 1
+      this.saveDisabled = false
+      this.agendaKelasPayload = {
+        rombel_id: null,
+        guru_id: null,
+        pembelajaran_id: null,
+        materi_pembelajaran: null,
+      }
+      this.siswaAbsenPayload = {
+        siswa_id: null,
+        agenda_kelas_id: null,
+        keterangan: null,
+        alasan: null,
+      }
+      this.currentAgendaKelas = {
+        id: null,
+        rombel_id: null,
+      }
     }
   },
 }

@@ -40,10 +40,9 @@
                     small
                     fab
                     :loading="loadingSave"
-                    @click="item.id"
+                    @click="confirmAgendaHadir(item.id)"
                   >
                     <v-icon> mdi-check </v-icon>
-                    {{ item.id }}
                   </v-btn>
                 </v-col>
                 <v-col>
@@ -52,7 +51,7 @@
                     small
                     fab
                     :loading="loadingSave"
-                    @click="item.id"
+                    @click="confirmAgendaTidakHadir(item.id)"
                   >
                     <v-icon> mdi-close </v-icon>
                   </v-btn>
@@ -121,14 +120,14 @@ export default {
       }
     },
 
-    async confirmAgendaHadir(){
+    async confirmAgendaHadir(id){
       if (this.$auth.loggedIn && this.$auth.strategy.token.get()) {
         const token = localStorage.getItem('auth.access_token')
         this.loadingSave = true
 
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
         this.$axios
-          .get(`/siswa/agenda-kelas/${this.user.rombel_id}/konfirmasi-hadir`)
+          .get(`/siswa/agenda-kelas/${id}/konfirmasi-hadir`)
           .then((response) => {
             this.$toast.success('Agenda Kelas berhasil dikonfirmasi hadir')
             this.loadingSave = false
@@ -144,14 +143,14 @@ export default {
       }
     },
 
-    async confirmAgendaTidakHadir(){
+    async confirmAgendaTidakHadir(id){
       if (this.$auth.loggedIn && this.$auth.strategy.token.get()) {
         const token = localStorage.getItem('auth.access_token')
         this.loadingSave = true
 
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
         this.$axios
-          .get(`/siswa/agenda-kelas/${this.user.rombel_id}/konfirmasi-tidak-hadir`)
+          .get(`/siswa/agenda-kelas/${id}/konfirmasi-tidak-hadir`)
           .then((response) => {
             this.$toast.success('Agenda Kelas berhasil dikonfirmasi tidak hadir')
             this.loadingSave = false
