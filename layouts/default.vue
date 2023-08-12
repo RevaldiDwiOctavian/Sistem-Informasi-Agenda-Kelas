@@ -142,6 +142,22 @@ export default {
       },
     ]
 
+    if (this.user.role === 'siswa') {
+      this.groupList = [
+        {
+          icon: 'mdi-view-agenda',
+          label: 'Menu',
+          childrens: [
+            {
+              icon: 'mdi-view-agenda',
+              label: 'Isi Agenda Kelas',
+              to: '/siswa/konfirmasi-agenda-kelas',
+            },
+          ],
+        },
+      ]
+    }
+
     if (this.user.role === 'guru') {
       this.groupList = [
         {
@@ -160,6 +176,32 @@ export default {
 
     if (this.user.role === 'admin') {
       this.groupList = [
+      {
+          icon: 'mdi-account-circle',
+          label: 'User',
+          childrens: [
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Admin',
+              to: '/admin/user-management/user-admin',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Wali Kelas',
+              to: '/admin/user-management/user-walikelas',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Guru',
+              to: '/admin/user-management/user-guru',
+            },
+            {
+              icon: 'mdi-checkbox-blank-circle',
+              label: 'Siswa',
+              to: '/admin/user-management/user-siswa',
+            },
+          ],
+        },
         {
           icon: 'mdi-cog',
           label: 'Management',
@@ -191,32 +233,6 @@ export default {
             },
           ],
         },
-        {
-          icon: 'mdi-account-circle',
-          label: 'User',
-          childrens: [
-            {
-              icon: 'mdi-checkbox-blank-circle',
-              label: 'Admin',
-              to: '/admin/user-management/user-admin',
-            },
-            {
-              icon: 'mdi-checkbox-blank-circle',
-              label: 'Wali Kelas',
-              to: '/admin/user-management/user-walikelas',
-            },
-            {
-              icon: 'mdi-checkbox-blank-circle',
-              label: 'Guru',
-              to: '/admin/user-management/user-guru',
-            },
-            {
-              icon: 'mdi-checkbox-blank-circle',
-              label: 'Siswa',
-              to: '/admin/user-management/user-siswa',
-            },
-          ],
-        },
       ]
     }
   },
@@ -224,7 +240,6 @@ export default {
     async logout() {
       await this.$auth.logout()
       this.$toast.success('Logout Success')
-      this.$router.push('/login')
     },
   },
 }

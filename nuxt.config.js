@@ -55,6 +55,11 @@ export default {
   },
 
   auth: {
+    redirect: {
+      login: '/login', // this is the path of the login page
+      logout: '/login', // this will redirect to the home page after logout
+      home: '/' // this is the path you want to redirect to after login
+    },
     strategies: {
       'laravelSanctum' : {
         provider: 'laravel/sanctum',

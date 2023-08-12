@@ -38,7 +38,7 @@
                     <v-select
                       :items="userGuruList"
                       v-model="rombelPayload.user_id"
-                      item-text="nama_akun"
+                      item-text="name"
                       item-value="id"
                       label="Wali Kelas*"
                       required
@@ -139,7 +139,7 @@
                     <v-select
                       :items="userGuruList"
                       v-model="rombelPayload.user_id"
-                      item-text="nama_akun"
+                      item-text="name"
                       item-value="id"
                       label="Wali Kelas*"
                       required
@@ -265,7 +265,7 @@ export default {
 
         this.$axios.setHeader('Authorization', `Bearer ${token}`)
         this.$axios
-          .get('/admin/users/guru')
+          .get('/admin/users/guru/walikelas')
           .then((response) => {
             this.userGuruList = response.data.data
             console.log(response)

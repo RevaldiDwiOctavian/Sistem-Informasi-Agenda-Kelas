@@ -160,6 +160,10 @@ export default {
       }
     },
 
+    formatDate(value) {
+        return new Date(value).toLocaleDateString()
+      },
+
     async handleDelete() {
       this.selected.map((item) => {
         this.delete(item.id)

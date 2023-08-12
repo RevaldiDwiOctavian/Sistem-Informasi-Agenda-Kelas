@@ -314,7 +314,7 @@
       },
   
       formatDate(value) {
-        return new Date(value).toLocaleDateString()
+        return new Date(value).toLocaleString('id-ID')
       },
   
       resetPayload() {

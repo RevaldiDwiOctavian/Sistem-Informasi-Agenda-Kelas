@@ -292,6 +292,7 @@
         title: 'Daftar Guru',
         guruList: [],
         userGuruList: [],
+        userGuruWalikelasList: [],
         loading: false,
   
         guruPayload: {
@@ -306,6 +307,7 @@
     async mounted() {
       this.fetchGuruData()
       this.fetchUserGuruData()
+      this.fetchUserGuruWalikelasData()
     },
   
     methods: {
@@ -319,6 +321,30 @@
             .get('/admin/users/guru')
             .then((response) => {
               this.userGuruList = response.data.data
+              console.log(response)
+              this.loading = false
+            })
+            .catch((error) => {
+              console.error('Gagal mengambil data guru:', error.message)
+              this.error = error.message
+              console.log(response)
+              this.loading = false
+            })
+        } else {
+          this.loading = false
+        }
+      },
+
+      async fetchUserGuruWalikelasData() {
+        if (this.$auth.loggedIn && this.$auth.strategy.token.get()) {
+          const token = localStorage.getItem('auth.access_token')
+          this.loading = true
+  
+          this.$axios.setHeader('Authorization', `Bearer ${token}`)
+          this.$axios
+            .get('/admin/users/guru/walikelas')
+            .then((response) => {
+              this.userGuruWalikelasList = response.data.data
               console.log(response)
               this.loading = false
             })
@@ -372,6 +398,8 @@
           this.guruPayload.jenis_kelamin = this.selected[0].jenis_kelamin
           this.guruPayload.user_id = this.selected[0].user_id
         }
+
+        this.userGuruList = this.userGuruList.concat(this.userGuruWalikelasList)
       },
   
       closeDialogAndReset() {
