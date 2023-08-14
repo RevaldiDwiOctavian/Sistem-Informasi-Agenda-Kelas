@@ -10,7 +10,7 @@
     >
       <v-list shaped>
         <v-list-item
-          v-for="(item) in singleList"
+          v-for="item in singleList"
           :key="item.to"
           :to="item.to"
           router
@@ -26,7 +26,7 @@
 
         <v-list-group
           :value="false"
-          v-for="(item) in groupList"
+          v-for="item in groupList"
           :key="item.to"
           :prepend-icon="item.icon"
           color="success"
@@ -142,6 +142,38 @@ export default {
       },
     ]
 
+    if (this.user.role === 'walikelas') {
+      this.groupList = [
+      {
+          icon: 'mdi-view-agenda',
+          label: 'Agenda Kelas',
+          childrens: [
+            {
+              icon: 'mdi-view-agenda',
+              label: 'Isi Agenda Kelas',
+              to: '/guru/agenda-kelas',
+            },
+          ],
+        },
+        {
+          icon: 'mdi-view-agenda',
+          label: 'Rombel',
+          childrens: [
+            {
+              icon: 'mdi-google-classroom',
+              label: 'Lihat Rombel',
+              to: '/walikelas/rombel',
+            },
+            {
+              icon: 'mdi-view-agenda',
+              label: 'Lihat Agenda Kelas',
+              to: '/walikelas/agenda-kelas',
+            },
+          ],
+        },
+      ]
+    }
+
     if (this.user.role === 'siswa') {
       this.groupList = [
         {
@@ -176,7 +208,7 @@ export default {
 
     if (this.user.role === 'admin') {
       this.groupList = [
-      {
+        {
           icon: 'mdi-account-circle',
           label: 'User',
           childrens: [
