@@ -1,5 +1,28 @@
 <template>
   <v-container>
+    <div v-if="user.role === 'siswa'">
+      <v-alert v-if="agendaKelasBelumKonfirmasi != 0 && agendaKelasBelumKonfirmasi != null" prominent type="error">
+        <v-row align="center">
+          <v-col class="grow">
+            Ada {{ agendaKelasBelumKonfirmasi }} agenda kelas belum
+            dikonfirmasi.
+          </v-col>
+          <v-col class="shrink">
+            <v-btn to="/siswa/konfirmasi-agenda-kelas">Cek Sekrang</v-btn>
+          </v-col>
+        </v-row>
+      </v-alert>
+      <div v-else>
+      <v-alert prominent type="success">
+        <v-row align="center">
+          <v-col class="grow">
+            Tidak ada agenda kelas baru.
+          </v-col>
+        </v-row>
+      </v-alert>
+    </div>
+    </div>
+
     <loading-overlay :is-loading="loading" />
     <v-row>
       <v-col cols="12" sm="12">
@@ -91,6 +114,7 @@ export default {
     return {
       user: this.$auth.user.data,
       loading: true,
+      agendaKelasBelumKonfirmasi: null,
       siswaCard: {
         title: 'Jumlah Siswa',
         total: 0,
@@ -110,13 +134,28 @@ export default {
   },
 
   async mounted() {
+    const token = localStorage.getItem('auth.access_token')
+
     try {
       const totalSiswa = await this.$axios.$get('/admin/siswa-total')
       const totalGuru = await this.$axios.$get('/admin/guru-total')
       const totalRombel = await this.$axios.$get('/admin/rombel-total')
+
       this.siswaCard.total = totalSiswa?.data
       this.guruCard.total = totalGuru?.data
       this.rombelCard.total = totalRombel?.data
+
+      if (this.user.role === 'siswa') {
+        const totalAgendaKelasKonfirmasi = await await this.$axios.$get(
+          `/siswa/jumlah-konfirmai-agenda-kelas/${this.user.rombel_id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        )
+        this.agendaKelasBelumKonfirmasi = totalAgendaKelasKonfirmasi?.data
+      }
       this.loading = false
     } catch (error) {
       this.loading = false

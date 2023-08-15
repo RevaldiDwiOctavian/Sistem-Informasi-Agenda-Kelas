@@ -97,6 +97,7 @@ export default {
         { text: 'Guru', value: 'nama_guru' },
         { text: 'NUPTK', value: 'nuptk' },
         { text: 'Mata Pelajaran', value: 'mata_pelajaran' },
+        { text: 'Kehadiran Guru', value: 'kehadiran_guru' },
       ],
       title: 'Daftar Agenda Kelas',
       data: [],

@@ -8,7 +8,7 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="4">
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
@@ -25,7 +25,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="4">
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
@@ -42,7 +42,7 @@
         </v-card>
       </v-col>
 
-      <v-col cols="4">
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
@@ -61,14 +61,14 @@
     </v-row>
 
     <v-row align="end" align-content="end">
-      <v-col class="d-flex" cols="auto" sm="auto">
+      <v-col class="d-flex" cols="12" sm="4">
         <v-select
           :items="tahunOptions"
           v-model="exportPayload.tahun"
           label="Tahun"
         ></v-select>
       </v-col>
-      <v-col class="d-flex" cols="auto" sm="auto">
+      <v-col class="d-flex" cols="12" sm="4">
         <v-select
           :items="bulanOptions"
           v-model="exportPayload.bulan"
@@ -76,7 +76,7 @@
         ></v-select>
       </v-col>
 
-      <v-col class="d-flex" cols="auto" sm="auto">
+      <v-col class="d-flex" cols="12" sm="4">
         <v-btn color="success" @click="exportAgendaKelas">
           <v-icon left> mdi-content-save </v-icon>
           Ekspor Agenda Kelas

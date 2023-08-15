@@ -136,7 +136,6 @@
         <v-spacer></v-spacer>
         <v-btn
           v-if="step < 2"
-          :disabled="step === 3 || !saveDisabled"
           color="primary"
           depressed
           @click="step++"
@@ -160,7 +159,7 @@
             </template>
             <v-card>
               <v-card-title>
-                <span class="text-h5">Hapus Guru</span>
+                <span class="text-h5">Selesai</span>
               </v-card-title>
               <v-card-text>
                 <v-container>
@@ -346,7 +345,7 @@ export default {
         this.agendaKelasPayload.materi_pembelajaran
       ) {
         const formData = new FormData()
-        formData.append('guru_id', this.agendaKelasPayload.guru_id)
+        formData.append('guru_id', this.loggedInGuruID)
         formData.append('rombel_id', this.agendaKelasPayload.rombel_id)
         formData.append(
           'pembelajaran_id',
@@ -460,7 +459,6 @@ export default {
       this.saveDisabled = false
       this.agendaKelasPayload = {
         rombel_id: null,
-        guru_id: null,
         pembelajaran_id: null,
         materi_pembelajaran: null,
       }
@@ -474,6 +472,7 @@ export default {
         id: null,
         rombel_id: null,
       }
+      this.siswaAbsenList = []
     }
   },
 }

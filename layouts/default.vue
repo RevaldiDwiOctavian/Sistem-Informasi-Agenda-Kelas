@@ -5,7 +5,7 @@
       :mini-variant="miniVariant"
       :clipped="clipped"
       fixed
-      width="280"
+      width="400"
       app
     >
       <v-list shaped>
@@ -182,7 +182,7 @@ export default {
           childrens: [
             {
               icon: 'mdi-view-agenda',
-              label: 'Isi Agenda Kelas',
+              label: 'Konfirmasi Agenda Kelas',
               to: '/siswa/konfirmasi-agenda-kelas',
             },
           ],
