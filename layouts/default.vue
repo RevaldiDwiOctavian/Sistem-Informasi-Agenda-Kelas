@@ -62,8 +62,6 @@
       </div>
 
       <v-toolbar-title
-        ><v-avatar size="40" class="mr-3"
-          ><img src="/iconDashboard.png" alt="" /></v-avatar
         ><span v-if="this.$device.isDesktop">{{ title }}</span></v-toolbar-title
       >
       <v-spacer />
@@ -73,7 +71,7 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-container>
+      <v-container fluid>
         <Nuxt />
       </v-container>
     </v-main>

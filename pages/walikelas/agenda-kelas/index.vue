@@ -294,7 +294,7 @@ export default {
         if (this.$auth.loggedIn && this.$auth.strategy.token.get()) {
           const formData = new FormData()
           formData.append('tahun', this.exportPayload.tahun)
-          formData.append('bulan', this.exportPayload.nuptk)
+          formData.append('bulan', this.exportPayload.bulan)
 
           const token = localStorage.getItem('auth.access_token')
 

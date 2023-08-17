@@ -1,184 +1,192 @@
 <template>
   <div>
-    <v-card class="mx-auto" max-width="100%">
-      <v-card-title class="text-h6 font-weight-regular justify-space-between">
-        <span>{{ currentTitle }}</span>
-        <v-avatar
-          color="primary lighten-2"
-          class="subheading white--text"
-          size="24"
-          >{{ step }}</v-avatar
-        >
-      </v-card-title>
+    <v-row>
+      <v-col cols="12" sm="12" class="mb-10">
+        <v-card class="pa-4 text-h6" tile> Isi Agenda Kelas </v-card>
+      </v-col>
+    </v-row>
+    <div>
+      <v-card class="mx-auto" max-width="100%">
+        <v-card-title class="text-h6 font-weight-regular justify-space-between">
+          <span>{{ currentTitle }}</span>
+          <v-avatar
+            color="primary lighten-2"
+            class="subheading white--text"
+            size="24"
+            >{{ step }}</v-avatar
+          >
+        </v-card-title>
 
-      <v-window v-model="step">
-        <v-window-item :value="1">
-          <v-card-text>
-            <v-select
-              :items="rombelList"
-              item-value="id"
-              item-text="nama_rombel"
-              label="Rombongan Belajar*"
-              v-model="agendaKelasPayload.rombel_id"
-              :disabled="saveDisabled"
-              required
-            ></v-select>
-            <span class="text-caption grey--text text--darken-1">
-              Pilih Rombongan Belajar yang saat ini sedang melakukan
-              pembelajaran.
-            </span>
-          </v-card-text>
-          <v-card-text>
-            <v-select
-              :items="pembelajaranList"
-              item-value="id"
-              item-text="mata_pelajaran"
-              label="Pembelajaran*"
-              v-model="agendaKelasPayload.pembelajaran_id"
-              :disabled="saveDisabled"
-              required
-            ></v-select>
-            <span class="text-caption grey--text text--darken-1">
-              Pilih Pembelajaran yang saat ini sedang dilakukan.
-            </span>
-          </v-card-text>
-          <v-card-text>
-            <v-textarea
-              name="input-7-1"
-              label="Materi Pembelajaran"
-              clearable
-              clear-icon="mdi-close-circle"
-              auto-grow
-              hint="Isi Materi Pembelajaran yang sedang diajarkan."
-              :disabled="saveDisabled"
-              v-model="agendaKelasPayload.materi_pembelajaran"
-            ></v-textarea>
-          </v-card-text>
-
-          <v-card-text>
-            <v-row class="ma-5" align="end" justify="space-around">
-              <v-btn
-                color="success"
-                :loading="loadingSave"
-                :disabled="loadingSave || saveDisabled"
-                @click="handleSubmitAgenda"
-              >
-                <v-icon left> mdi-content-save </v-icon>
-                Simpan
-              </v-btn>
-            </v-row>
-          </v-card-text>
-        </v-window-item>
-
-        <div v-if="saveDisabled">
-          <v-window-item :value="2">
+        <v-window v-model="step">
+          <v-window-item :value="1">
             <v-card-text>
               <v-select
-                :items="siswaList"
-                item-text="nama_lengkap"
+                :items="rombelList"
                 item-value="id"
-                label="Siswa*"
-                v-model="siswaAbsenPayload.siswa_id"
+                item-text="nama_rombel"
+                label="Rombongan Belajar*"
+                v-model="agendaKelasPayload.rombel_id"
+                :disabled="saveDisabled"
                 required
               ></v-select>
+              <span class="text-caption grey--text text--darken-1">
+                Pilih Rombongan Belajar yang saat ini sedang melakukan
+                pembelajaran.
+              </span>
+            </v-card-text>
+            <v-card-text>
               <v-select
-                :items="['Sakit', 'Izin', 'Tanpa Keterangan']"
-                label="Keterangan Absen*"
-                v-model="siswaAbsenPayload.keterangan"
+                :items="pembelajaranList"
+                item-value="id"
+                item-text="mata_pelajaran"
+                label="Pembelajaran*"
+                v-model="agendaKelasPayload.pembelajaran_id"
+                :disabled="saveDisabled"
                 required
               ></v-select>
-              <v-text-field
-                label="Alasan"
-                v-model="siswaAbsenPayload.alasan"
-              ></v-text-field>
+              <span class="text-caption grey--text text--darken-1">
+                Pilih Pembelajaran yang saat ini sedang dilakukan.
+              </span>
+            </v-card-text>
+            <v-card-text>
+              <v-textarea
+                name="input-7-1"
+                label="Materi Pembelajaran"
+                clearable
+                clear-icon="mdi-close-circle"
+                auto-grow
+                hint="Isi Materi Pembelajaran yang sedang diajarkan."
+                :disabled="saveDisabled"
+                v-model="agendaKelasPayload.materi_pembelajaran"
+              ></v-textarea>
+            </v-card-text>
 
+            <v-card-text>
               <v-row class="ma-5" align="end" justify="space-around">
                 <v-btn
                   color="success"
                   :loading="loadingSave"
-                  @click="handleSubmitSiswaAbsen"
+                  :disabled="loadingSave || saveDisabled"
+                  @click="handleSubmitAgenda"
                 >
-                  <v-icon left> mdi-plus </v-icon>
-                  Tambah
+                  <v-icon left> mdi-content-save </v-icon>
+                  Simpan
                 </v-btn>
               </v-row>
-
-              <v-data-table
-                :headers="headers"
-                :items="siswaAbsenList"
-                item-key="id"
-                class="elevation-1"
-                :loading="loading"
-                loading-text="Loading... Please wait"
-                fixed-header
-                height="400px"
-              >
-                <template v-slot:[`item.aksi`]="{ item }">
-                  <v-btn
-                    color="error"
-                    :loading="loadingSave"
-                    @click="deleteSiswaAbsen(item.id)"
-                  >
-                    <v-icon left> mdi-trash-can </v-icon>
-                    Hapus
-                  </v-btn>
-                </template>
-              </v-data-table>
             </v-card-text>
           </v-window-item>
-        </div>
-      </v-window>
 
-      <v-divider></v-divider>
-
-      <v-card-actions>
-        <v-btn :disabled="step === 1" text @click="step--"> Kembali </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn
-          v-if="step < 2"
-          color="primary"
-          depressed
-          @click="step++"
-        >
-          Lanjut
-        </v-btn>
-        <div v-else>
-          <v-dialog
-            v-model="dialogDelete"
-            transition="dialog-top-transition"
-            persistent
-            max-width="600"
-          >
-            <template v-slot:activator="{ on, attrs }">
-              <v-btn
-                color="primary"
-                v-bind="attrs"
-                v-on="on"
-                ><v-icon>mdi-check</v-icon> Selesai</v-btn
-              >
-            </template>
-            <v-card>
-              <v-card-title>
-                <span class="text-h5">Selesai</span>
-              </v-card-title>
+          <div v-if="saveDisabled">
+            <v-window-item :value="2">
               <v-card-text>
-                <v-container>
-                  <div class="text-h6">
-                    Apakah anda yakin ingin menyelesaikan agenda kelas?
-                  </div>
-                </v-container>
-                <small>* Setelah diselesaikan, anda tidak dapat melakukan perubahan data. pastikan semua data sudah benar.</small>
+                <v-select
+                  :items="siswaList"
+                  item-text="nama_lengkap"
+                  item-value="id"
+                  label="Siswa*"
+                  v-model="siswaAbsenPayload.siswa_id"
+                  required
+                ></v-select>
+                <v-select
+                  :items="['Sakit', 'Izin', 'Tanpa Keterangan']"
+                  label="Keterangan Absen*"
+                  v-model="siswaAbsenPayload.keterangan"
+                  required
+                ></v-select>
+                <v-text-field
+                  label="Alasan"
+                  v-model="siswaAbsenPayload.alasan"
+                ></v-text-field>
+
+                <v-row class="ma-5" align="end" justify="space-around">
+                  <v-btn
+                    color="success"
+                    :loading="loadingSave"
+                    @click="handleSubmitSiswaAbsen"
+                  >
+                    <v-icon left> mdi-plus </v-icon>
+                    Tambah
+                  </v-btn>
+                </v-row>
+
+                <v-data-table
+                  :headers="headers"
+                  :items="siswaAbsenList"
+                  item-key="id"
+                  class="elevation-1"
+                  :loading="loading"
+                  loading-text="Loading... Please wait"
+                  fixed-header
+                  height="400px"
+                >
+                  <template v-slot:[`item.aksi`]="{ item }">
+                    <v-btn
+                      color="error"
+                      :loading="loadingSave"
+                      @click="deleteSiswaAbsen(item.id)"
+                    >
+                      <v-icon left> mdi-trash-can </v-icon>
+                      Hapus
+                    </v-btn>
+                  </template>
+                </v-data-table>
               </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn text @click="dialogDelete = false">Batal</v-btn>
-                <v-btn text @click="finish">Ya</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
-        </div>
-      </v-card-actions>
-    </v-card>
+            </v-window-item>
+          </div>
+        </v-window>
+
+        <v-divider></v-divider>
+
+        <v-card-actions>
+          <v-btn :disabled="step === 1" text @click="step--"> Kembali </v-btn>
+          <v-spacer></v-spacer>
+          <v-btn
+            v-if="step < 2"
+            color="primary"
+            :disabled="!saveDisabled"
+            depressed
+            @click="step++"
+          >
+            Lanjut
+          </v-btn>
+          <div v-else>
+            <v-dialog
+              v-model="dialogDelete"
+              transition="dialog-top-transition"
+              persistent
+              max-width="600"
+            >
+              <template v-slot:activator="{ on, attrs }">
+                <v-btn color="primary" v-bind="attrs" v-on="on"
+                  ><v-icon>mdi-check</v-icon> Selesai</v-btn
+                >
+              </template>
+              <v-card>
+                <v-card-title>
+                  <span class="text-h5">Selesai</span>
+                </v-card-title>
+                <v-card-text>
+                  <v-container>
+                    <div class="text-h6">
+                      Apakah anda yakin ingin menyelesaikan agenda kelas?
+                    </div>
+                  </v-container>
+                  <small
+                    >* Setelah diselesaikan, anda tidak dapat melakukan
+                    perubahan data. pastikan semua data sudah benar.</small
+                  >
+                </v-card-text>
+                <v-card-actions>
+                  <v-spacer></v-spacer>
+                  <v-btn text @click="dialogDelete = false">Batal</v-btn>
+                  <v-btn text @click="finish">Ya</v-btn>
+                </v-card-actions>
+              </v-card>
+            </v-dialog>
+          </div>
+        </v-card-actions>
+      </v-card>
+    </div>
   </div>
 </template>
 
@@ -473,7 +481,7 @@ export default {
         rombel_id: null,
       }
       this.siswaAbsenList = []
-    }
+    },
   },
 }
 </script>

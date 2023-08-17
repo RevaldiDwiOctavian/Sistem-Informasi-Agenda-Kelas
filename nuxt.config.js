@@ -8,8 +8,8 @@ export default {
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - sisfo_agenda_kelas',
-    title: 'sisfo_agenda_kelas',
+    titleTemplate: '%s - SMK Tutwuri Handayani',
+    title: 'Sistem Informasi Agenda Kelas',
     meta: [
       { charset: 'utf-8' },
       { name: 'viewport', content: 'width=device-width, initial-scale=1' },

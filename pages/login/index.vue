@@ -45,7 +45,7 @@
         </v-card>
       </v-flex> -->
 
-      <v-card width="1000">
+      <v-card width="1000" elevation="24" rounded="100">
         <v-row justify="center">
           <v-col cols="12" sm="6" class="pa-10">
             <v-card-text class="text-h4">
@@ -90,7 +90,7 @@
                   placeholder="password"
                   required
                 ></v-text-field>
-                <v-btn type="submit" class="mt-4" color="primary" value="log in"
+                <v-btn type="submit" block class="mt-4" color="primary" value="log in"
                   >Masuk</v-btn
                 >
               </form>

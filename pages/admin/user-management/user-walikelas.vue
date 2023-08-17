@@ -1,6 +1,11 @@
 <template>
     <div>
       <v-row>
+      <v-col cols="12" sm="12">
+        <v-card class="pa-4 text-h5" tile> Kelola User Wali Kelas </v-card>
+      </v-col>
+    </v-row>
+      <v-row>
         <v-col>
           <v-dialog v-model="dialog" persistent max-width="600px">
             <template v-slot:activator="{ on, attrs }">
