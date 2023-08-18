@@ -6,12 +6,14 @@
       </v-col>
     </v-row>
     <v-row>
-      <v-col cols="4">
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-4">Wali Kelas</div>
-              <v-list-item-title class="text-h6 mb-1"> {{ rombelInfo.wali_kelas }} </v-list-item-title>
+              <v-list-item-title class="text-h6 mb-1">
+                {{ rombelInfo.wali_kelas }}
+              </v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-avatar tile size="80">
@@ -20,13 +22,15 @@
           </v-list-item>
         </v-card>
       </v-col>
-      
-      <v-col cols="4">
+
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-4">Jumlah Siswa</div>
-              <v-list-item-title class="text-h6 mb-1"> {{ rombelInfo.jumlah_siswa }} </v-list-item-title>
+              <v-list-item-title class="text-h6 mb-1">
+                {{ rombelInfo.jumlah_siswa }}
+              </v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-avatar tile size="80">
@@ -36,12 +40,14 @@
         </v-card>
       </v-col>
 
-      <v-col cols="4">
+      <v-col cols="12" sm="4">
         <v-card class="mx-auto" outlined>
           <v-list-item three-line>
             <v-list-item-content>
               <div class="text-overline mb-4">Jurusan</div>
-              <v-list-item-title class="text-h6 mb-1"> {{ rombelInfo.jurusan }} </v-list-item-title>
+              <v-list-item-title class="text-h6 mb-1">
+                {{ rombelInfo.jurusan }}
+              </v-list-item-title>
             </v-list-item-content>
 
             <v-list-item-avatar tile size="80">
@@ -49,7 +55,7 @@
             </v-list-item-avatar>
           </v-list-item>
         </v-card>
-      </v-col>  
+      </v-col>
     </v-row>
     <v-row>
       <v-col>

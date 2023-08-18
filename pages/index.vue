@@ -1,7 +1,7 @@
 <template>
   <div>
     <loading-overlay :is-loading="loading" />
-    <v-row>
+    <v-row class="mb-1">
       <v-col cols="12" sm="12">
         <v-card class="pa-4" tile> Selamat Datang, {{ user.name }} </v-card>
       </v-col>

@@ -192,7 +192,7 @@ export default {
       this.groupList = [
         {
           icon: 'mdi-view-agenda',
-          label: 'Menu',
+          label: 'Agenda Kelas',
           childrens: [
             {
               icon: 'mdi-view-agenda',
