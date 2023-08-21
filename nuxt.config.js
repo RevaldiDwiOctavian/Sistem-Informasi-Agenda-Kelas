@@ -77,7 +77,7 @@ export default {
       },
       local: {
         token: {
-          property: 'token',
+          property: 'access_token',
           global: true,
         },
       }
