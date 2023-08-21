@@ -107,7 +107,7 @@
 import LoadingOverlay from '~/components/UiComponents/LoadingOverlay.vue'
 export default {
   layout: 'auth',
-
+  auth: 'guest',
   components: {
     LoadingOverlay,
   },
