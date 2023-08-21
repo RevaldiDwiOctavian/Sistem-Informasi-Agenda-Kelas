@@ -1,6 +1,5 @@
 <template>
   <div>
-    {{ this.$auth.user.data }} sadasd
     <v-row>
       <v-col cols="12" sm="12" class="mb-10">
         <v-card class="pa-4 text-h6" tile> Isi Agenda Kelas </v-card>
@@ -466,6 +465,7 @@ export default {
     finish() {
       this.step = 1
       this.saveDisabled = false
+      this.dialogDelete = false
       this.agendaKelasPayload = {
         rombel_id: null,
         pembelajaran_id: null,
