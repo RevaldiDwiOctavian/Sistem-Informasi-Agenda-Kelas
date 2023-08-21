@@ -140,7 +140,7 @@ import DashboardCard from '~/components/UiComponents/DashboardCard.vue'
 import LoadingOverlayVue from '~/components/UiComponents/LoadingOverlay.vue'
 export default {
   name: 'IndexPage',
-
+  middleware: 'auth',
   components: {
     'dashboard-card': DashboardCard,
     'loading-overlay': LoadingOverlayVue,
