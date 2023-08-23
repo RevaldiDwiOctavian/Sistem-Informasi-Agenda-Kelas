@@ -63,8 +63,8 @@ export default {
     strategies: {
       'laravelSanctum' : {
         provider: 'laravel/sanctum',
-        // url: 'http://localhost:8000',
-        url: 'https://103.175.216.220',
+        url: 'http://localhost:8000',
+        // url: 'https://103.175.216.220',
         endpoints: {
           login: {
             url: '/api/login',
@@ -93,8 +93,8 @@ export default {
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
   axios: {
     // Workaround to avoid enforcing hard-coded localhost:3000: https://github.com/nuxt-community/axios-module/issues/308
-    baseURL: 'https://103.175.216.220/api',
-    // baseURL: 'http://localhost:8000/api',
+    // baseURL: 'https://103.175.216.220/api',
+    baseURL: 'http://localhost:8000/api',
     credentials: true,
   },
 
