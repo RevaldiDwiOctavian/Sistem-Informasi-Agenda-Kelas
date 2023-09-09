@@ -89,12 +89,6 @@
       <v-divider></v-divider>
 
       <v-list shaped>
-        <v-list-item to="/notifikasi" v-if="user.role === 'siswa'">
-          <v-list-item-action>
-            <v-icon> mdi-bell </v-icon>
-          </v-list-item-action>
-          <v-list-item-title>Notifikasi</v-list-item-title>
-        </v-list-item>
 
         <v-list-item @click="logout">
           <v-list-item-action>

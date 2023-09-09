@@ -553,7 +553,7 @@ Halo, *${this.selected[0].name}*.
 Admin mendapati bahwa anda tidak mengisi agenda kelas. Mohon untuk selalu mengisi agenda kelas dilain waktu.
 `
       const ecodedURI = encodeURIComponent(text)
-      window.open(`https://wa.me/+62${noWa}?text=${ecodedURI}`)
+      window.open(`https://wa.me/${noWa}?text=${ecodedURI}`)
       this.dialogTegur = false
     }
   },
