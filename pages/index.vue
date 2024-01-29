@@ -20,7 +20,7 @@
             dikonfirmasi.
           </v-col>
           <v-col class="shrink">
-            <v-btn to="/siswa/konfirmasi-agenda-kelas">Cek Sekrang</v-btn>
+            <v-btn to="/siswa/konfirmasi-agenda-kelas">Cek Sekarang</v-btn>
           </v-col>
         </v-row>
       </v-alert>
